@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Muhammad Faiuz KK | Cybersecurity</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --green:#00ff88;--green2:#00cc66;--dim:#0a0f0a;--surface:#0d1a0d;
+    --card:#111c11;--border:#1a3a1a;--text:#c8ffd4;--muted:#5a8a5a;
+    --red:#ff4444;--amber:#ffaa00;--cyan:#00ffcc;
+  }
+  html{scroll-behavior:smooth;}
+  body{background:var(--dim);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden;}
+  body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,136,0.015) 2px,rgba(0,255,136,0.015) 4px);pointer-events:none;z-index:999;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,15,10,0.92);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:52px;backdrop-filter:blur(6px);}
+  .nav-logo{font-family:'Share Tech Mono',monospace;color:var(--green);font-size:14px;letter-spacing:2px;}
+  .nav-links{display:flex;gap:1.5rem;}
+  .nav-links a{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;font-weight:600;}
+  .nav-links a:hover{color:var(--green);}
+  #hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:6rem 2rem 4rem;position:relative;}
+  .hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(0,255,136,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,0.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;}
+  .hero-content{position:relative;z-index:1;}
+  .hero-tag{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--green);letter-spacing:4px;margin-bottom:1rem;opacity:.7;}
+  .hero-name{font-family:'Rajdhani',sans-serif;font-size:clamp(2.8rem,7vw,5.5rem);font-weight:700;color:#fff;line-height:1.05;letter-spacing:-1px;}
+  .hero-name span{color:var(--green);}
+  .hero-title{font-family:'Share Tech Mono',monospace;font-size:clamp(13px,2vw,16px);color:var(--cyan);margin-top:.8rem;letter-spacing:3px;}
+  .hero-desc{max-width:520px;margin:1.5rem auto 0;color:var(--muted);font-size:15px;line-height:1.7;}
+  .hero-btns{display:flex;gap:1rem;justify-content:center;margin-top:2rem;flex-wrap:wrap;}
+  .btn{padding:.6rem 1.6rem;font-family:'Share Tech Mono',monospace;font-size:13px;letter-spacing:2px;border:1px solid var(--green);background:transparent;color:var(--green);cursor:pointer;text-decoration:none;transition:all .2s;}
+  .btn:hover{background:var(--green);color:#000;}
+  .btn.outline{border-color:var(--muted);color:var(--muted);}
+  .btn.outline:hover{border-color:var(--green);color:var(--green);}
+  .status-bar{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);margin-top:3rem;display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;}
+  .status-item{display:flex;align-items:center;gap:.4rem;}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite;}
+  .dot.amber{background:var(--amber);animation-delay:.5s;}
+  .dot.red{background:var(--red);animation-delay:1s;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+  section{padding:5rem 2rem;}
+  .section-header{margin-bottom:2.5rem;}
+  .section-label{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--green);letter-spacing:4px;text-transform:uppercase;opacity:.7;margin-bottom:.4rem;}
+  .section-title{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;color:#fff;letter-spacing:-0.5px;}
+  .container{max-width:900px;margin:0 auto;}
+  #about{background:var(--surface);}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;}
+  @media(max-width:600px){.about-grid{grid-template-columns:1fr;}.contact-grid{grid-template-columns:1fr!important;}.nav-links{gap:.8rem;}}
+  .terminal-box{background:var(--dim);border:1px solid var(--border);padding:1.2rem;font-family:'Share Tech Mono',monospace;font-size:13px;}
+  .term-header{display:flex;gap:6px;margin-bottom:1rem;align-items:center;}
+  .t-dot{width:10px;height:10px;border-radius:50%;}
+  .t-dot.r{background:#ff5f57;}.t-dot.y{background:#febc2e;}.t-dot.g{background:#28c840;}
+  .term-line{color:var(--muted);margin:.2rem 0;}
+  .term-line .cmd{color:var(--green);}.term-line .val{color:var(--cyan);}.term-line .str{color:var(--amber);}
+  .about-text{color:var(--muted);font-size:15px;line-height:1.8;}
+  .about-text p{margin-bottom:1rem;}
+  #skills{background:var(--dim);}
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;}
+  .skill-card{background:var(--card);border:1px solid var(--border);padding:1.2rem;transition:border-color .2s;}
+  .skill-card:hover{border-color:var(--green);}
+  .skill-category{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--green);letter-spacing:3px;margin-bottom:.8rem;}
+  .skill-list{list-style:none;}
+  .skill-list li{color:var(--text);font-size:14px;padding:.3rem 0;border-bottom:1px solid rgba(26,58,26,0.5);display:flex;align-items:center;gap:.5rem;}
+  .skill-list li:last-child{border-bottom:none;}
+  .skill-list li::before{content:'›';color:var(--green);font-weight:700;}
+  #projects{background:var(--surface);}
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;}
+  .project-card{background:var(--card);border:1px solid var(--border);padding:1.4rem;position:relative;overflow:hidden;transition:border-color .2s,transform .2s;}
+  .project-card:hover{border-color:var(--green);transform:translateY(-2px);}
+  .project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+  .project-card:hover::before{transform:scaleX(1);}
+  .project-tag{display:inline-block;font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--green);border:1px solid var(--green);padding:.1rem .5rem;letter-spacing:2px;margin-bottom:.8rem;}
+  .project-name{font-size:17px;font-weight:700;color:#fff;margin-bottom:.4rem;}
+  .project-desc{font-size:13px;color:var(--muted);line-height:1.6;}
+  .project-stack{margin-top:.8rem;display:flex;flex-wrap:wrap;gap:.4rem;}
+  .stack-pill{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);border:1px solid var(--border);padding:.15rem .5rem;}
+  #certifications{background:var(--dim);}
+  .cert-list{display:grid;gap:.8rem;}
+  .cert-item{background:var(--card);border:1px solid var(--border);padding:1rem 1.4rem;display:flex;align-items:center;gap:1rem;transition:border-color .2s;}
+  .cert-item:hover{border-color:var(--amber);}
+  .cert-item.featured{border-color:var(--green);position:relative;overflow:hidden;}
+  .cert-item.featured::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--green);}
+  .cert-icon{font-family:'Share Tech Mono',monospace;font-size:18px;color:var(--amber);min-width:28px;text-align:center;}
+  .cert-item.featured .cert-icon{color:var(--green);}
+  .cert-name{font-size:15px;font-weight:600;color:#fff;}
+  .cert-issuer{font-size:12px;color:var(--muted);font-family:'Share Tech Mono',monospace;}
+  .cert-badge{margin-left:auto;font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--amber);border:1px solid var(--amber);padding:.15rem .6rem;letter-spacing:1px;white-space:nowrap;}
+  .cert-badge.earned{color:var(--green);border-color:var(--green);}
+  .cert-badge.planned{color:var(--muted);border-color:var(--muted);}
+  #contact{background:var(--surface);}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+  .contact-info{display:flex;flex-direction:column;gap:1rem;}
+  .contact-item{display:flex;align-items:center;gap:1rem;background:var(--card);border:1px solid var(--border);padding:1rem 1.2rem;transition:border-color .2s;}
+  .contact-item:hover{border-color:var(--cyan);}
+  .c-icon{font-family:'Share Tech Mono',monospace;font-size:16px;color:var(--cyan);min-width:24px;text-align:center;}
+  .c-label{font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace;letter-spacing:2px;}
+  .c-value{font-size:14px;color:var(--text);margin-top:.1rem;}
+  .contact-form{display:flex;flex-direction:column;gap:.8rem;}
+  .contact-form input,.contact-form textarea{background:var(--card);border:1px solid var(--border);color:var(--text);padding:.7rem 1rem;font-family:'Share Tech Mono',monospace;font-size:13px;outline:none;resize:vertical;transition:border-color .2s;}
+  .contact-form input:focus,.contact-form textarea:focus{border-color:var(--green);}
+  .contact-form textarea{min-height:100px;}
+  .contact-form input::placeholder,.contact-form textarea::placeholder{color:var(--muted);}
+  footer{text-align:center;padding:1.5rem;border-top:1px solid var(--border);font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:2px;}
+  footer span{color:var(--green);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">&gt; faiuz@sec:~$</div>
+  <div class="nav-links">
+    <a href="#about">about</a>
+    <a href="#skills">skills</a>
+    <a href="#projects">projects</a>
+    <a href="#certifications">certs</a>
+    <a href="#contact">contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-content">
+    <div class="hero-tag">// cybersecurity_student.profile</div>
+    <h1 class="hero-name">Muhammad<br><span>Faiuz KK</span></h1>
+    <div class="hero-title">[ CYBERSECURITY STUDENT &middot; SOC ANALYST ]</div>
+    <p class="hero-desc">Aspiring cybersecurity professional focused on ethical hacking, SOC operations, and building a safer digital world &mdash; one vulnerability at a time.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn">View Projects</a>
+      <a href="#contact" class="btn outline">Get In Touch</a>
+    </div>
+    <div class="status-bar">
+      <div class="status-item"><div class="dot"></div>Learning Mode: Active</div>
+      <div class="status-item"><div class="dot amber"></div>CSA Certified</div>
+      <div class="status-item"><div class="dot red"></div>SOC: Monitoring</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">// 01_about</div>
+      <h2 class="section-title">Who Am I</h2>
+    </div>
+    <div class="about-grid">
+      <div class="terminal-box">
+        <div class="term-header">
+          <div class="t-dot r"></div><div class="t-dot y"></div><div class="t-dot g"></div>
+        </div>
+        <div class="term-line"><span class="cmd">$ whoami</span></div>
+        <div class="term-line"><span class="val">Muhammad Faiuz KK</span></div>
+        <div class="term-line" style="margin-top:.5rem"><span class="cmd">$ cat profile.txt</span></div>
+        <div class="term-line"><span class="str">Role:</span> Cybersecurity Student</div>
+        <div class="term-line"><span class="str">Cert:</span> <span style="color:var(--green)">EC-Council CSA ✓</span></div>
+        <div class="term-line"><span class="str">Focus:</span> SOC Analysis &amp; Defense</div>
+        <div class="term-line"><span class="str">Phone:</span> +91 96450 47369</div>
+        <div class="term-line"><span class="str">Email:</span> fayizkk122@gmail.com</div>
+        <div class="term-line" style="margin-top:.5rem"><span class="cmd">$ <span style="animation:blink 1s infinite;display:inline-block">&#9607;</span></span></div>
+      </div>
+      <div class="about-text">
+        <p>Hello! I'm <strong style="color:#fff">Muhammad Faiuz KK</strong>, a passionate cybersecurity student and EC-Council Certified SOC Analyst dedicated to mastering digital defense and threat detection.</p>
+        <p>I specialize in Security Operations Center (SOC) analysis, understanding how to monitor, detect, and respond to security incidents in real time.</p>
+        <p>My goal is to become a skilled security professional who helps organizations protect their digital assets and respond swiftly to emerging threats.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">// 02_skills</div>
+      <h2 class="section-title">Skillset</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-category">// soc &amp; monitoring</div>
+        <ul class="skill-list">
+          <li>SIEM Tools (Splunk/QRadar)</li>
+          <li>Log Analysis</li>
+          <li>Incident Response</li>
+          <li>Threat Intelligence</li>
+          <li>Alert Triage</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <div class="skill-category">// offensive</div>
+        <ul class="skill-list">
+          <li>Penetration Testing</li>
+          <li>Vulnerability Assessment</li>
+          <li>CTF Challenges</li>
+          <li>Social Engineering</li>
+          <li>OSINT</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <div class="skill-category">// tools</div>
+        <ul class="skill-list">
+          <li>Kali Linux</li>
+          <li>Wireshark</li>
+          <li>Nmap / Nessus</li>
+          <li>Burp Suite</li>
+          <li>Metasploit</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <div class="skill-category">// programming</div>
+        <ul class="skill-list">
+          <li>Python</li>
+          <li>Bash Scripting</li>
+          <li>SQL</li>
+          <li>JavaScript</li>
+          <li>C (Basics)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">// 03_projects</div>
+      <h2 class="section-title">Projects</h2>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-tag">SOC</div>
+        <div class="project-name">SOC Home Lab</div>
+        <div class="project-desc">Built a personal SOC lab to simulate real-world threat monitoring, log ingestion, and incident response workflows.</div>
+        <div class="project-stack">
+          <span class="stack-pill">Splunk</span>
+          <span class="stack-pill">VirtualBox</span>
+          <span class="stack-pill">Kali Linux</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-tag">NETWORK</div>
+        <div class="project-name">Network Packet Analyzer</div>
+        <div class="project-desc">Python-based tool to capture and analyze network packets, detect anomalies, and log suspicious activity.</div>
+        <div class="project-stack">
+          <span class="stack-pill">Python</span>
+          <span class="stack-pill">Scapy</span>
+          <span class="stack-pill">Wireshark</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-tag">CTF</div>
+        <div class="project-name">CTF Write-ups</div>
+        <div class="project-desc">Documented solutions for CTF challenges covering web exploitation, cryptography, forensics, and OSINT.</div>
+        <div class="project-stack">
+          <span class="stack-pill">TryHackMe</span>
+          <span class="stack-pill">HackTheBox</span>
+          <span class="stack-pill">OSINT</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">// 04_certifications</div>
+      <h2 class="section-title">Certifications</h2>
+    </div>
+    <div class="cert-list">
+      <div class="cert-item featured">
+        <div class="cert-icon">&#9733;</div>
+        <div>
+          <div class="cert-name">Certified SOC Analyst (CSA)</div>
+          <div class="cert-issuer">EC-Council &middot; Certified SOC Analyst Program</div>
+        </div>
+        <div class="cert-badge earned">CERTIFIED &#10003;</div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon">&#9670;</div>
+        <div>
+          <div class="cert-name">CompTIA Security+</div>
+          <div class="cert-issuer">CompTIA &middot; Target Certification</div>
+        </div>
+        <div class="cert-badge">IN PROGRESS</div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon">&#9672;</div>
+        <div>
+          <div class="cert-name">Google Cybersecurity Certificate</div>
+          <div class="cert-issuer">Google / Coursera</div>
+        </div>
+        <div class="cert-badge">IN PROGRESS</div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon">&#9650;</div>
+        <div>
+          <div class="cert-name">Certified Ethical Hacker (CEH)</div>
+          <div class="cert-issuer">EC-Council &middot; Future Goal</div>
+        </div>
+        <div class="cert-badge planned">PLANNED</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">// 05_contact</div>
+      <h2 class="section-title">Get In Touch</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="c-icon">@</div>
+          <div>
+            <div class="c-label">EMAIL</div>
+            <div class="c-value">fayizkk122@gmail.com</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="c-icon">#</div>
+          <div>
+            <div class="c-label">PHONE</div>
+            <div class="c-value">+91 96450 47369</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="c-icon">&lt;/&gt;</div>
+          <div>
+            <div class="c-label">GITHUB</div>
+            <div class="c-value">github.com/faiuzkk</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="c-icon">in</div>
+          <div>
+            <div class="c-label">LINKEDIN</div>
+            <div class="c-value">linkedin.com/in/faiuzkk</div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <input type="text" placeholder="// your_name" />
+        <input type="email" placeholder="// your_email" />
+        <textarea placeholder="// your_message..."></textarea>
+        <button class="btn" style="align-self:flex-start">SEND_MESSAGE</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2025 <span>Muhammad Faiuz KK</span> &middot; EC-Council CSA &middot; <span>Stay Secure.</span></p>
+</footer>
+
+</body>
+</html>
